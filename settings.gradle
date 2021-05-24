@@ -1,0 +1,2 @@
+rootProject.name = "Lighthouse00"
+include ':app'

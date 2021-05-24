@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Lighthouse00">
+
+
         <activity
             android:name=".FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -23,5 +25,7 @@
         <activity android:name=".ServiceActivity"></activity>
         <service android:name="com.example.lighthouse00.ShakeService"></service>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
 </manifest>

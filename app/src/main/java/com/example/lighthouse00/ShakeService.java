@@ -10,7 +10,18 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.IBinder;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.io.IOException;
+
 
 public class ShakeService extends Service implements SensorEventListener {
 
@@ -19,6 +30,12 @@ public class ShakeService extends Service implements SensorEventListener {
     private float mAccel; // acceleration apart from gravity
     private float mAccelCurrent; // current acceleration including gravity
     private float mAccelLast; // last acceleration including gravity
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -32,7 +49,9 @@ public class ShakeService extends Service implements SensorEventListener {
                 .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(this, mAccelerometer,
                 SensorManager.SENSOR_DELAY_UI, new Handler());
+
         return START_STICKY;
+
     }
 
     @Override
@@ -49,10 +68,39 @@ public class ShakeService extends Service implements SensorEventListener {
         float delta = mAccelCurrent - mAccelLast;
         mAccel = mAccel * 0.9f + delta; // perform low-cut filter
 
+
+
         if (mAccel > 11) {
             ServiceActivity.tvShakeService.setText("Captcha Accepted");
             ServiceActivity.tvShakeService.setTextColor(Color.GREEN);
             Toast.makeText(this, "CAPTCHA Accepted.", Toast.LENGTH_SHORT).show();
+
+            //final TextView textView = (TextView) findViewById(R.id.text);
+// ...
+
+// Instantiate the RequestQueue.
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url ="https://lighthouseapiendpoint.herokuapp.com/getinit?activate=true";
+
+// Request a string response from the provided URL.
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Display the first 500 characters of the response string.
+                            Toast.makeText(ShakeService.this, "Response is: " + response, Toast.LENGTH_SHORT).show();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(ShakeService.this, "That didn't work!", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+// Add the request to the RequestQueue.
+            queue.add(stringRequest);
         }
+
     }
 }

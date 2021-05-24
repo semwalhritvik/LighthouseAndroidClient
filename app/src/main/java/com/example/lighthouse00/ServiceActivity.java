@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+
 public class ServiceActivity extends AppCompatActivity {
 
     public static TextView tvShakeService;
@@ -15,11 +17,14 @@ public class ServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
 
+
+
         Intent intent = new Intent(this, ShakeService.class);
         //Start Service
         startService(intent);
 
         tvShakeService = findViewById(R.id.tvShakeService);
+
 
 
     }

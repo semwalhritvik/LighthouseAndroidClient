@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.lighthouse00.databinding.ActivityFullscreenBinding;
 
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -118,8 +119,11 @@ public class FullscreenActivity extends AppCompatActivity {
                 toggle();
                 Intent intent = new Intent(FullscreenActivity.this, ServiceActivity.class);
                 startActivity(intent);
-                Toast.makeText(FullscreenActivity.this, "showing", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FullscreenActivity.this, "Service Activated", Toast.LENGTH_SHORT).show();
             }
+
+
+
 
         });
 

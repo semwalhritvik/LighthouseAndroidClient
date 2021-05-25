@@ -1,17 +1,15 @@
 package com.example.lighthouse00;
 
 import android.annotation.SuppressLint;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lighthouse00.databinding.ActivityFullscreenBinding;
 
@@ -70,44 +68,34 @@ public class FullscreenActivity extends AppCompatActivity {
         }
     };
     private boolean mVisible;
-    private final Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
+    private final Runnable mHideRunnable = this::hide;
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
      */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            switch (motionEvent.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    if (AUTO_HIDE) {
-                        delayedHide(AUTO_HIDE_DELAY_MILLIS);
-                    }
-                    break;
-                case MotionEvent.ACTION_UP:
-                    view.performClick();
-                    break;
-                default:
-                    break;
-            }
-            return false;
+    private final View.OnTouchListener mDelayHideTouchListener = (view, motionEvent) -> {
+        switch (motionEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if (AUTO_HIDE) {
+                    delayedHide(AUTO_HIDE_DELAY_MILLIS);
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                view.performClick();
+                break;
+            default:
+                break;
         }
+        return false;
     };
-    private ActivityFullscreenBinding binding;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityFullscreenBinding.inflate(getLayoutInflater());
+        com.example.lighthouse00.databinding.ActivityFullscreenBinding binding = ActivityFullscreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         mVisible = true;
@@ -115,16 +103,12 @@ public class FullscreenActivity extends AppCompatActivity {
         mContentView = binding.fullscreenContent;
 
         // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        mContentView.setOnClickListener(view -> {
 
-                toggle();
-                Intent intent = new Intent(FullscreenActivity.this, ServiceActivity.class);
-                startActivity(intent);
-                Toast.makeText(FullscreenActivity.this, "Service Activated", Toast.LENGTH_SHORT).show();
-            }
-
+            toggle();
+            Intent intent = new Intent(FullscreenActivity.this, ServiceActivity.class);
+            startActivity(intent);
+            Toast.makeText(FullscreenActivity.this, "Service Activated", Toast.LENGTH_SHORT).show();
         });
 
 
@@ -135,26 +119,14 @@ public class FullscreenActivity extends AppCompatActivity {
         binding.dummyButton.setOnTouchListener(mDelayHideTouchListener);
 
 
-        binding.dummyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FullscreenActivity.this,ShakeService.class);
-                stopService(intent);
-                Toast.makeText(FullscreenActivity.this, "Service Stopped", Toast.LENGTH_SHORT).show();
-            }
+        binding.dummyButton.setOnClickListener(v -> {
+            Intent intent = new Intent(FullscreenActivity.this,ShakeService.class);
+            stopService(intent);
+            Toast.makeText(FullscreenActivity.this, "Service Stopped", Toast.LENGTH_SHORT).show();
         });
-
-       /* serviceStopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(FullscreenActivity.this, "it works", Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
 
     }
-
-
 
 
     @Override
@@ -164,7 +136,7 @@ public class FullscreenActivity extends AppCompatActivity {
         // Trigger the initial hide() shortly after the activity has been
         // created, to briefly hint to the user that UI controls
         // are available.
-        delayedHide(100);
+        delayedHide(1000);
 
     }
 

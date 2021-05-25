@@ -5,4 +5,5 @@
     <string name="lighthouse">Lighthouse</string>
     <string name="main_screen_message">Tap to activate service</string>
     <string name="stop_service">Stop Service</string>
+    <string name="the_service_has_started">The service has started</string>
 </resources>

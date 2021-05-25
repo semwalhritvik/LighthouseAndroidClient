@@ -13,10 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="662dp"
         android:layout_marginTop="20dp"
-        android:layout_x="44dp"
-        android:layout_y="169dp"
         android:paddingTop="300dp"
-        android:text="The service has started"
+        android:text="@string/the_service_has_started"
         android:textColor="@color/purple_200"
         android:textSize="30sp" />
 
@@ -24,7 +22,7 @@
         android:id="@+id/stopbutton"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="426dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:text="@string/stop_service"
         android:textColor="@color/teal_200" />

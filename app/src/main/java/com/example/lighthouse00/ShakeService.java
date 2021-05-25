@@ -79,8 +79,9 @@ public class ShakeService extends Service implements SensorEventListener {
 // ...
 
 // Instantiate the RequestQueue.
+            String user_id = "saket" ; //user_id taken during the login process
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url ="https://lighthouseapiendpoint.herokuapp.com/getinit?activate=true";
+            String url ="https://lighthouseapiendpoint.herokuapp.com/getinit?activate=true&uid=" + user_id ;
 
 // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -88,7 +89,7 @@ public class ShakeService extends Service implements SensorEventListener {
                         @Override
                         public void onResponse(String response) {
                             // Display the first 500 characters of the response string.
-                            Toast.makeText(ShakeService.this, "Response is: " + response, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ShakeService.this, "Response is " + response, Toast.LENGTH_SHORT).show();
                         }
                     }, new Response.ErrorListener() {
 

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.lighthouse00.databinding.ActivityFullscreenBinding;
@@ -100,9 +101,14 @@ public class FullscreenActivity extends AppCompatActivity {
     };
     private ActivityFullscreenBinding binding;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
 
         binding = ActivityFullscreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -122,16 +128,36 @@ public class FullscreenActivity extends AppCompatActivity {
                 Toast.makeText(FullscreenActivity.this, "Service Activated", Toast.LENGTH_SHORT).show();
             }
 
-
-
-
         });
+
+
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         binding.dummyButton.setOnTouchListener(mDelayHideTouchListener);
+        Intent intent = new Intent(FullscreenActivity.this, ServiceActivity.class);
+
+        binding.dummyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopService(intent);
+                Toast.makeText(FullscreenActivity.this, "Service Stopped", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+       /* serviceStopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(FullscreenActivity.this, "it works", Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
+
     }
+
+
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -141,6 +167,7 @@ public class FullscreenActivity extends AppCompatActivity {
         // created, to briefly hint to the user that UI controls
         // are available.
         delayedHide(100);
+
     }
 
     private void toggle() {
@@ -174,6 +201,7 @@ public class FullscreenActivity extends AppCompatActivity {
         // Schedule a runnable to display UI elements after a delay
         mHideHandler.removeCallbacks(mHidePart2Runnable);
         mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
+
     }
 
     /**

@@ -30,6 +30,7 @@ public class ShakeService extends Service implements SensorEventListener {
     private float mAccel; // acceleration apart from gravity
     private float mAccelCurrent; // current acceleration including gravity
     private float mAccelLast; // last acceleration including gravity
+    private boolean check = true;
 
     @Override
     public void onCreate() {
@@ -50,7 +51,7 @@ public class ShakeService extends Service implements SensorEventListener {
         mSensorManager.registerListener(this, mAccelerometer,
                 SensorManager.SENSOR_DELAY_UI, new Handler());
 
-        return START_STICKY;
+        return START_NOT_STICKY;
 
     }
 
@@ -70,7 +71,7 @@ public class ShakeService extends Service implements SensorEventListener {
 
 
 
-        if (mAccel > 11) {
+        if (mAccel > 11 && check==true) {
             ServiceActivity.tvShakeService.setText("Captcha Accepted");
             ServiceActivity.tvShakeService.setTextColor(Color.GREEN);
             Toast.makeText(this, "CAPTCHA Accepted.", Toast.LENGTH_SHORT).show();
@@ -103,5 +104,12 @@ public class ShakeService extends Service implements SensorEventListener {
             queue.add(stringRequest);
         }
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
+        check =false;
     }
 }

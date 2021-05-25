@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple_500"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".ServiceActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/tvShakeService"
-        android:text="The service has started"
+        android:layout_width="wrap_content"
+        android:layout_height="662dp"
         android:layout_marginTop="20dp"
-        android:textSize="30sp"
-        android:textColor="@color/purple_200"/>
+        android:layout_x="44dp"
+        android:layout_y="169dp"
+        android:paddingTop="300dp"
+        android:text="The service has started"
+        android:textColor="@color/purple_200"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/stopbutton"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="426dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/stop_service"
+        android:textColor="@color/teal_200" />
 
 
 </LinearLayout>

@@ -107,9 +107,6 @@ public class FullscreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-
         binding = ActivityFullscreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -136,11 +133,12 @@ public class FullscreenActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         binding.dummyButton.setOnTouchListener(mDelayHideTouchListener);
-        Intent intent = new Intent(FullscreenActivity.this, ServiceActivity.class);
+
 
         binding.dummyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(FullscreenActivity.this,ShakeService.class);
                 stopService(intent);
                 Toast.makeText(FullscreenActivity.this, "Service Stopped", Toast.LENGTH_SHORT).show();
             }
